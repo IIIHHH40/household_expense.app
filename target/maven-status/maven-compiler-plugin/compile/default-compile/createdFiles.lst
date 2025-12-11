@@ -1,0 +1,7 @@
+haruto\DailyTotal.class
+haruto\DbAccess.class
+haruto\GetStatus.class
+haruto\Handler.class
+haruto\JdbcUtil.class
+haruto\DbConfig.class
+haruto\SecretsUtil.class
