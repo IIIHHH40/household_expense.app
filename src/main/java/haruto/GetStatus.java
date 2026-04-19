@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GetStatus {
 
-    public static List<DailyTotal> loadDailyTotals(String jdbcUrl, String user, String pass, String userId) {
+    public static List<DailyTotal> loadDailyTotals(DbConfig config, String userId) {
         List<DailyTotal> list = new ArrayList<>();
 
         String sql = """
@@ -20,7 +20,7 @@ public class GetStatus {
             GROUP BY day
             ORDER BY day
         """;
-        try (Connection conn = DriverManager.getConnection(jdbcUrl, user, pass);
+        try (Connection conn = DriverManager.getConnection(config.jdbcUrl(),config.username(),config.password());
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, userId);

@@ -11,15 +11,10 @@ public class JdbcUtil {
         String username = json.getString("username");
         String password = json.getString("password");
         int port        = json.getInt("port");
-        return new DbConfig(host, dbname, username, password, port);
-    }
-    //JavaオブジェクトからJDBC用のURLを組み立てる
-    public static String createJdbcUrl(DbConfig config) {
-        return String.format(
-            "jdbc:mysql://%s:%d/%s?useSSL=false&serverTimezone=UTC",
-            config.host(),
-            config.port(),
-            config.dbname()
+        String jdbcUrl=String.format(
+                "jdbc:mysql://%s:%d/%s?useSSL=false&serverTimezone=UTC",
+                host,port,dbname
         );
+        return new DbConfig(host, dbname, username, password, port,jdbcUrl);
     }
 }

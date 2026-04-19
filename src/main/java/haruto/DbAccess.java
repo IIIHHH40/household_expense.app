@@ -3,9 +3,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 public class DbAccess {
-      public static void insertRecord(String jdbcUrl, String user, String pass,
-                                    String userId, int amount, String category, String memo) {
-       try (Connection conn = DriverManager.getConnection(jdbcUrl, user, pass)) {
+      public static void insertRecord(DbConfig config, String userId, int amount, String category, String memo) {
+       try (Connection conn = DriverManager.getConnection(config.jdbcUrl(), config.username(), config.password())) {
             String sql = "INSERT INTO records (user_id, amount, category, memo) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, userId);

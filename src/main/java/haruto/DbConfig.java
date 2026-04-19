@@ -5,13 +5,15 @@ public class DbConfig {
     private final String username;
     private final String password;
     private final int port;
+    private final String jdbcUrl;
 
-    public DbConfig(String host, String dbname, String username, String password, int port) {
+    public DbConfig(String host, String dbname, String username, String password, int port,String jdbcUrl) {
         this.host = host;
         this.dbname = dbname;
         this.username = username;
         this.password = password;
         this.port = port;
+        this.jdbcUrl=jdbcUrl;
     }
 
     public String host()     { return host; }
@@ -19,4 +21,5 @@ public class DbConfig {
     public String username() { return username; }
     public String password() { return password; }
     public int port()        { return port; }
+    public String jdbcUrl()  {return jdbcUrl;}
 }

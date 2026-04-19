@@ -52,13 +52,7 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
         if ("グラフ".equals(text)) {
             String secretJson = SecretsUtil.getSecret("household-secret");
             DbConfig config = JdbcUtil.parseSecret(secretJson);
-            String jdbcUrl = JdbcUtil.createJdbcUrl(config);
-            List<DailyTotal> totals = GetStatus.loadDailyTotals(
-            jdbcUrl,
-            config.username(),
-            config.password(),
-            userId
-    );
+            List<DailyTotal> totals = GetStatus.loadDailyTotals(config,userId);
 
             String graphText = buildDailyGraphText(totals);
             replyText(replyToken, graphText, context);
@@ -75,17 +69,8 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
             // Secrets → JDBC → INSERT
             String secretJson = SecretsUtil.getSecret("household-secret");
             DbConfig config = JdbcUtil.parseSecret(secretJson);
-            String jdbcUrl = JdbcUtil.createJdbcUrl(config);
 
-            DbAccess.insertRecord(
-                    jdbcUrl,
-                    config.username(),
-                    config.password(),
-                    userId,
-                    amount,
-                    category,
-                    memo
-            ); }
+            DbAccess.insertRecord(config,userId,amount,category,memo); }
 
             return "OK";
 
