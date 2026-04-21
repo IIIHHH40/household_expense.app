@@ -25,10 +25,11 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
             JSONObject json = new JSONObject(body);
 
             JSONArray events = json.optJSONArray("events");
+            //どうしてwebhookはここになる？
             if (events == null || events.length() == 0) {
                 // Webhook検証のとき
                 context.getLogger().log("no events. return OK.");
-                return "OK";  // ここで 200 を返す
+                return "OK";
             }
 
          JSONObject event = events.getJSONObject(0);
@@ -45,6 +46,7 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
         FormatStatus status = FormatCheck.check(text);
 
         if (!status.ok()) {
+        //status.message()は何になってる？
         replyText(replyToken, status.message(), context);
         return "OK";
 }
@@ -53,23 +55,20 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
             String secretJson = SecretsUtil.getSecret("household-secret");
             DbConfig config = JdbcUtil.parseSecret(secretJson);
             List<DailyTotal> totals = GetStatus.loadDailyTotals(config,userId);
-
             String graphText = buildDailyGraphText(totals);
             replyText(replyToken, graphText, context);
             return "OK";
    }
         else {
-
-
-            String[] parts = text.split(" ");
+            String[] parts = text.trim().split("\\s+");
             int amount = Integer.parseInt(parts[0]);
             String category = parts[1];
+            //ここの文法わからん
             String memo = (parts.length >= 3) ? parts[2] : "";
 
             // Secrets → JDBC → INSERT
             String secretJson = SecretsUtil.getSecret("household-secret");
             DbConfig config = JdbcUtil.parseSecret(secretJson);
-
             DbAccess.insertRecord(config,userId,amount,category,memo); }
 
             return "OK";
