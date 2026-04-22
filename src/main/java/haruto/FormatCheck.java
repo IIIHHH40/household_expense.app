@@ -9,8 +9,6 @@ public class FormatCheck {
         }
 
         String[] parts = text.trim().split("\\s+");
-
-        // 金額とカテゴリは必須 
         if (parts.length < 2) {
             return FormatStatus.invalid("フォーマットが正しくありません。\n例: 1200 食費 メモ");
         }

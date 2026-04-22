@@ -25,7 +25,6 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
             JSONObject json = new JSONObject(body);
 
             JSONArray events = json.optJSONArray("events");
-            //どうしてwebhookはここになる？
             if (events == null || events.length() == 0) {
                 // Webhook検証のとき
                 context.getLogger().log("no events. return OK.");
@@ -46,7 +45,6 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
         FormatStatus status = FormatCheck.check(text);
 
         if (!status.ok()) {
-        //status.message()は何になってる？
         replyText(replyToken, status.message(), context);
         return "OK";
 }
@@ -63,7 +61,6 @@ public class Handler implements RequestHandler<Map<String, Object>, String> {
             String[] parts = text.trim().split("\\s+");
             int amount = Integer.parseInt(parts[0]);
             String category = parts[1];
-            //ここの文法わからん
             String memo = (parts.length >= 3) ? parts[2] : "";
 
             // Secrets → JDBC → INSERT
