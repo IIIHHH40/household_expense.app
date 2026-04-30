@@ -68,10 +68,13 @@ FormatCheck.java:フォーマットがあっているか確認
 
 ## Lambdaのメイン処理
 1.API GatewayからのWebhook JSONを受け取る
+
 2.Messageからtextを取り出す
+
 3.入力形式を判定
   [数字、カテゴリ、メモ]ならSQLにINSERT
   [グラフ]ならSQLからSELECTし、集計したデータをLINEで返す
+  
 ## セキュリティ
 DBパスワードをAWS Secrets Managerに保存
 Lambdaには環境変数のみを記述
